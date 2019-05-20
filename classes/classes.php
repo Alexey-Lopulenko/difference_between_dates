@@ -45,7 +45,7 @@ class Dates{
     }
 
     /**
-     * @return array
+     * @return int
      */
     public function getYears()
     {
@@ -53,7 +53,7 @@ class Dates{
     }
 
     /**
-     * @return array
+     * @return int
      */
     public function getMonth()
     {
@@ -61,7 +61,7 @@ class Dates{
     }
 
     /**
-     * @return array
+     * @return int
      */
     public function getDays()
     {
@@ -82,18 +82,14 @@ class Dates{
         elseif($end_date[0] > $start_date[0] && $end_date[1] > $start_date[1]){
             $years = $end_date[0] - $start_date[0];
             $this->years = $years;
-
         }
         elseif($end_date[2] < $start_date[2] || $end_date[1] < $start_date[1]) {
-
 
             $end_date[0] = $end_date[0] - 1;
             $years = $end_date[0] - $start_date[0];
             $this->years = $years;
 
-
         }
-
 
     }
 
@@ -112,18 +108,11 @@ class Dates{
                 $month = (12 - $start_date[1]) + $end_date[1];
                 $this->month = $month;
             }
-
-
         }
-
-
         else{
             $month = $end_date[1] - $start_date[1];
             $this->month = $month;
-
-
         }
-
     }
 
     /**
@@ -135,12 +124,10 @@ class Dates{
             $day = $end_date[2] - $start_date[2];
             $this->days = $day;
         }
-
         elseif ($end_date[2] < $start_date[2]){
             if($this->leap_year($end_date[0]) ==1 && $end_date[1] == 3 ){
                 $day = 29 -($start_date[2] - $end_date[2]);
                 $this->days = $day;
-
             }
             else{
                 $month = $this->getArrMonth($end_date[1]-1);
@@ -148,11 +135,7 @@ class Dates{
                 $day = $month -($start_date[2] - $end_date[2]);
                 $this->days = $day;
             }
-
-
         }
-
-
     }
 
     /**
@@ -162,10 +145,8 @@ class Dates{
     public function setTotal_days($start_date , $end_date){
 
 
-        $years_in_daysys = 0;
-        $months_in_daysys = 0;
-
-
+        $years_in_days = 0;
+        $months_in_days = 0;
 
         if($this ->getYears() != 0){
 
@@ -174,10 +155,10 @@ class Dates{
 
                 if($this->leap_year($i) == 1){
 
-                    $years_in_daysys += 366;
+                    $years_in_days += 366;
                 }
                 else {
-                    $years_in_daysys += 365;
+                    $years_in_days += 365;
                 }
             }
 
@@ -191,14 +172,14 @@ class Dates{
 
             if($this->leap_year($start_date[0]) == 1 && $start_date[1] <=2 ||
                 $this->leap_year($end_date[0]) == 1  && $end_date[1] > 2  ){
-                $months_in_daysys += 1;
+                $months_in_days += 1;
                 for($i = $start_date[1]; $i < $start_date[1] + $this->getMonth(); $i++ ){
-                    $months_in_daysys += $this-> getArrMonth($i);
+                    $months_in_days += $this-> getArrMonth($i);
                 }
 
             } else{
                 for($i = $start_date[1]; $i < $start_date[1] + $this->getMonth(); $i++ ){
-                    $months_in_daysys += $this-> getArrMonth($i);
+                    $months_in_days += $this-> getArrMonth($i);
                 }
             }
 
@@ -206,11 +187,11 @@ class Dates{
         }
         else{
 
-            $months_in_daysys += 0;
+            $months_in_days += 0;
         }
 
 
-        $total = $years_in_daysys + $months_in_daysys + $this-> getDays();
+        $total = $years_in_days + $months_in_days + $this-> getDays();
         $this->total_days = $total;
     }
 
@@ -234,7 +215,6 @@ class Dates{
         $date1 = $this->validate_date($date_str1);
         $date2 = $this->validate_date($date_str2);
 
-
         if($date1 != NULL && $date2 != NULL){
             $this->set_Dates($date1, $date2);
 
@@ -245,9 +225,6 @@ class Dates{
         $this->setDays($this->getDates2(), $this->getDates1());
 
         $this->setTotal_days($this->getDates2(), $this->getDates1());
-
-
-
 
     }
 
@@ -264,8 +241,6 @@ class Dates{
 
 
         if(preg_match($pattern,$date)){ //соответсвие даты регулярному выражению
-
-
 
             $date = explode('-', $date);
             $date =  $this->str_in_int($date);
@@ -285,7 +260,6 @@ class Dates{
                 $date = NULL;
                 return $date;
             }
-
         }
     }
 
@@ -316,7 +290,6 @@ class Dates{
                     $this->setDates2($dat1);
                 }
             }
-
         }
         elseif ($dat1 == $dat2){
 
@@ -326,7 +299,6 @@ class Dates{
             $this->set_Dates1($dat1);
             $this->setDates2($dat2);
         }
-
     }
 
 
@@ -338,9 +310,6 @@ class Dates{
 
         return date("L", mktime(0,0,0, 7,7, $year));
     }
-
-
-
 
 }
 
