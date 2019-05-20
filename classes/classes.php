@@ -1,7 +1,7 @@
 <?php
 class Dates{
-    private $dates1;
-    private $dates2;
+    private $dates1;// start date
+    private $dates2;// end date
     private $years;//Кол-во лет между датами
     private $month;//Кол-во месяцев между датами
     private $days;//Кол-во дней между датами
